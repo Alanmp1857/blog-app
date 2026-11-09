@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include ('partials/head') %>
+        <title>Welcome back | Ink & Ideas</title>
+</head>
+
+<body>
+    <%- include ('partials/nav') %>
+        <main class="auth-page">
+            <section class="auth-card">
+                <div class="auth-aside">
+                    <span class="auth-aside-mark">“</span>
+                    <p>Every good idea deserves a place to land.</p>
+                    <span class="auth-aside-caption">YOUR NEXT CHAPTER STARTS HERE</span>
+                </div>
+                <div class="auth-content">
+                    <span class="eyebrow">Welcome back</span>
+                    <h1>Pick up where<br>you left off.</h1>
+                    <p class="auth-intro">Sign in to find your people and stories.</p>
+                    <form action="/user/signin" method="POST" class="auth-form">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control form-control-lg" name="email" id="email" autocomplete="email" placeholder="you@example.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control form-control-lg" name="password" id="password" autocomplete="current-password" placeholder="Your password" required>
+                        </div>
+                        <button type="submit" class="btn btn-accent auth-submit">Sign in <span aria-hidden="true">→</span></button>
+                    </form>
+                    <p class="auth-switch">New around here? <a href="/user/signup">Create an account</a></p>
+                </div>
+            </section>
+        </main>
+        <%- include ('partials/scripts') %>
+</body>
+
+</html>

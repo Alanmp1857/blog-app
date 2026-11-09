@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ('partials/head') %>
+<title>Write a story | Ink & Ideas</title>
+</head>
+<body>
+    <%- include ('partials/nav') %>
+<main class="compose-page">
+    <section class="compose-header">
+        <div class="container compose-header-inner">
+            <span class="eyebrow">Your voice belongs here</span>
+            <h1>Start with a story.</h1>
+            <p>Take your time. The best things are worth sharing.</p>
+            </div>
+    </section>
+    <div class="container compose-container">
+        <form action="/blog/add-new" method="POST" enctype="multipart/form-data" class="compose-card">
+            <div class="compose-field">
+                <label for="title" class="form-label">Give your story a title</label>
+                <input type="text" class="form-control compose-title-input" id="title" name="title" placeholder="A title that pulls us in..." required>
+            </div>
+            <div class="compose-field">
+                <label for="body" class="form-label">The story</label>
+                <textarea class="form-control compose-body-input" id="body" name="body" rows="12" placeholder="Start writing here..." required></textarea>
+            </div>
+            <div class="compose-field">
+                <label for="coverImage" class="form-label">Set the scene <span class="optional-label">Optional</span></label>
+                <input type="file" class="form-control compose-file-input" id="coverImage" name="coverImage" accept="image/*">
+                <div class="form-text">Choose a cover image to bring your story to life.</div>
+            </div>
+            <div class="compose-footer">
+                <span>Your story will be shared with the community.</span>
+                <button type="submit" class="btn btn-accent compose-submit">Publish story <span aria-hidden="true">↗</span></button>
+            </div>
+        </form>
+    </div>
+</main>
+    <%- include ('partials/scripts') %>
+</body>
+</html>

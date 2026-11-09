@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg site-nav">
+    <div class="container nav-container">
+        <a class="navbar-brand site-brand" href="/" aria-label="Ink & Ideas home">
+            <span class="brand-mark">i</span>
+            <span>ink<span class="brand-amp">&</span>ideas</span>
+        </a>
+        <button class="navbar-toggler site-nav-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav site-nav-links">
+                <li class="nav-item"><a class="nav-link" href="/">Discover</a></li>
+                <% if (locals.user) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog/add-new">Write a story</a>
+                    </li>
+                <% } %>
+            </ul>
+            <ul class="navbar-nav site-nav-account">
+                <% if (locals.user) { %>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle account-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="account-avatar"><%= (locals.user.fullName || 'U').charAt(0).toUpperCase() %></span>
+                            <span><%= locals.user.fullName %></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end site-dropdown">
+                            <li><a class="dropdown-item" href="/user/signout">Sign Out</a></li>
+                        </ul>
+                    </li>
+                <% } else { %>
+                    <li class="nav-item">
+                        <a class="nav-link sign-in-link" href="/user/signin">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-join-link" href="/user/signup">Join the community <span aria-hidden="true">↗</span></a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<% if (locals.error) { %>
+    <div class="container mt-4">
+        <div class="alert alert-danger" role="alert">
+            <%= locals.error %>
+        </div>
+    </div>
+<% } %>

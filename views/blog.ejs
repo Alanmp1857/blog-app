@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include ('partials/head') %>
+    <title><%= blog.title %> | Blog</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --page-bg: #f6f5f2;
+            --ink: #20231f;
+            --muted: #73776f;
+            --accent: #52745c;
+            --line: #e8e7e1;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: var(--ink);
+            font-family: Georgia, "Times New Roman", serif;
+        }
+
+        .article-wrap {
+            width: min(100% - 2rem, 850px);
+            margin: 3.5rem auto 5rem;
+        }
+
+        .article-kicker {
+            color: var(--accent);
+            font: 700 .75rem/1.2 system-ui, sans-serif;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            max-width: 780px;
+            margin: 1rem 0 1.5rem;
+            font-size: clamp(2.4rem, 7vw, 4.7rem);
+            font-weight: 700;
+            letter-spacing: -.045em;
+            line-height: 1.04;
+            overflow-wrap: anywhere;
+        }
+
+        .author-row {
+            display: flex;
+            align-items: center;
+            gap: .85rem;
+            margin: 1.8rem 0 2rem;
+            color: var(--muted);
+            font: .9rem/1.45 system-ui, sans-serif;
+        }
+
+        .author-avatar {
+            width: 46px;
+            height: 46px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 8px #20231f1a;
+        }
+
+        .author-name {
+            color: var(--ink);
+            font-weight: 650;
+        }
+
+        .article-cover {
+            display: block;
+            width: 100%;
+            max-height: 520px;
+            aspect-ratio: 16 / 9;
+            border-radius: 1.2rem;
+            object-fit: cover;
+            background: #e7e5df;
+            box-shadow: 0 18px 45px #25251f1a;
+        }
+
+        .article-body {
+            padding: 2.5rem 0 3rem;
+            color: #393d37;
+            font-size: clamp(1.08rem, 2.4vw, 1.25rem);
+            line-height: 1.9;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+        }
+
+        .comments-panel {
+            padding: clamp(1.25rem, 4vw, 2.5rem);
+            border: 1px solid var(--line);
+            border-radius: 1.2rem;
+            background: #fff;
+            box-shadow: 0 12px 35px #25251f0a;
+        }
+
+        .comments-heading {
+            display: flex;
+            align-items: baseline;
+            gap: .65rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .comments-heading h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: -.03em;
+        }
+
+        .comment-count {
+            color: var(--muted);
+            font: .9rem system-ui, sans-serif;
+        }
+
+        .comment-form {
+            margin-bottom: 2rem;
+        }
+
+        .comment-input {
+            min-height: 110px;
+            padding: 1rem;
+            border-color: var(--line);
+            border-radius: .8rem;
+            resize: vertical;
+        }
+
+        .comment-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 .2rem #52745c20;
+        }
+
+        .submit-comment {
+            padding: .65rem 1.15rem;
+            border: 0;
+            border-radius: 999px;
+            background: var(--accent);
+            font: 600 .9rem system-ui, sans-serif;
+        }
+
+        .submit-comment:hover {
+            background: #3f6149;
+        }
+
+        .sign-in-note {
+            margin-bottom: 1.75rem;
+            color: var(--muted);
+            font: .95rem/1.6 system-ui, sans-serif;
+        }
+
+        .sign-in-note a {
+            color: var(--accent);
+            font-weight: 650;
+        }
+
+        .comment-item {
+            padding: 1.25rem 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .comment-author {
+            display: flex;
+            align-items: center;
+            gap: .7rem;
+            margin-bottom: .65rem;
+            font: .9rem system-ui, sans-serif;
+        }
+
+        .comment-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .comment-content {
+            margin: 0 0 0 2.85rem;
+            color: #454942;
+            font-size: 1rem;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+            white-space: pre-wrap;
+        }
+
+        @media (max-width: 576px) {
+            .article-wrap {
+                margin-top: 2.25rem;
+            }
+
+            .article-cover {
+                border-radius: .8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include ('partials/nav') %>
+
+    <main class="article-wrap">
+        <article>
+            <div class="article-kicker">From the journal</div>
+            <h1 class="article-title"><%= blog.title %></h1>
+
+            <div class="author-row">
+                <img
+                    src="<%= blog.createdBy.profileImageURL || '/images/default-profile.png' %>"
+                    class="author-avatar"
+                    alt=""
+                >
+                <div>
+                    <div class="author-name"><%= blog.createdBy.fullName %></div>
+                    <div>Published <time datetime="<%= blog.createdAt.toISOString() %>"><%= blog.createdAt.toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric' }) %></time></div>
+                </div>
+            </div>
+
+            <img src="<%= blog.coverImageURL %>" class="article-cover" alt="<%= blog.title %>">
+            <div class="article-body"><%= blog.body %></div>
+        </article>
+
+        <section class="comments-panel" aria-labelledby="comments-title">
+            <div class="comments-heading">
+                <h2 id="comments-title">Conversation</h2>
+                <span class="comment-count"><%= comments.length %></span>
+            </div>
+
+            <% if (locals.user) { %>
+                <form action="/blog/comment/<%= blog._id %>" method="POST" class="comment-form">
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Leave a thoughtful reply</label>
+                        <textarea
+                            class="form-control comment-input"
+                            name="content"
+                            id="content"
+                            placeholder="What are your thoughts?"
+                            required
+                        ></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary submit-comment">Post comment</button>
+                </form>
+            <% } else { %>
+                <p class="sign-in-note">
+                    Want to join the conversation? <a href="/user/signin">Sign in</a> to leave a comment.
+                </p>
+            <% } %>
+
+            <div class="comment-list">
+                <% comments.forEach(comment => { %>
+                    <article class="comment-item">
+                        <div class="comment-author">
+                            <img
+                                src="<%= comment.createdBy.profileImageURL || '/images/default-profile.png' %>"
+                                class="comment-avatar"
+                                alt=""
+                            >
+                            <span class="author-name"><%= comment.createdBy.fullName %></span>
+                        </div>
+                        <p class="comment-content"><%= comment.content %></p>
+                    </article>
+                <% }) %>
+            </div>
+        </section>
+    </main>
+
+    <%- include ('partials/scripts') %>
+</body>
+
+</html>

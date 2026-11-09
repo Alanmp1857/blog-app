@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ('partials/head') %>
+    <title>Ink & Ideas | Discover stories</title>
+</head>
+<body>
+    <%- include ('partials/nav') %>
+    <main>
+        <section class="home-hero">
+            <div class="container home-hero-inner">
+                <div class="hero-copy">
+                    <span class="eyebrow"><span class="eyebrow-dot"></span> A little room for big ideas</span>
+                    <h1>Stories worth<br><span>slowing down for.</span></h1>
+                    <p>Fresh perspectives, curious minds, and words that stay with you. Find your next favorite read.</p>
+                    <a class="hero-link" href="#latest-stories">Explore the stories <span aria-hidden="true">↓</span></a>
+                </div>
+                <div class="hero-art" aria-hidden="true">
+                    <div class="hero-orbit orbit-one"></div>
+                    <div class="hero-orbit orbit-two"></div>
+                    <div class="hero-note">
+                        <span class="note-spark">✳</span>
+                        <span>Make space<br>for a good story.</span>
+                    </div>
+                    <div class="hero-stamp">READ<br>CURIOUSLY</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container stories-section" id="latest-stories">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">The latest</span>
+                    <h2>Stories to settle into</h2>
+                </div>
+                <span class="story-total"><%= blogs.length %> <%= blogs.length === 1 ? 'story' : 'stories' %></span>
+            </div>
+
+            <% if (blogs.length) { %>
+                <div class="story-grid">
+                    <% blogs.forEach(blog => { %>
+                        <article class="story-card">
+                            <a class="story-image-link" href="/blog/<%= blog._id %>" aria-label="Read <%= blog.title %>">
+                                <% if (blog.coverImageURL) { %>
+                                    <img src="<%= blog.coverImageURL %>" class="story-image" alt="">
+                                <% } else { %>
+                                    <div class="story-image story-image-placeholder"><span>✳</span></div>
+                                <% } %>
+                                <span class="story-image-arrow" aria-hidden="true">↗</span>
+                            </a>
+                            <div class="story-card-body">
+                                <span class="story-category">Editor's pick</span>
+                                <h3><a href="/blog/<%= blog._id %>"><%= blog.title %></a></h3>
+                                <p><%= blog.body %></p>
+                                <a class="story-read-link" href="/blog/<%= blog._id %>">Read story <span aria-hidden="true">→</span></a>
+                            </div>
+                        </article>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <div class="empty-stories">
+                    <span class="empty-mark">✳</span>
+                    <h3>The first story is waiting to be told.</h3>
+                    <p>Be the one to start the conversation.</p>
+                    <% if (locals.user) { %>
+                        <a href="/blog/add-new" class="btn btn-accent">Write the first story</a>
+                    <% } else { %>
+                        <a href="/user/signup" class="btn btn-accent">Join the community</a>
+                    <% } %>
+                </div>
+            <% } %>
+        </section>
+    </main>
+
+    <%- include ('partials/scripts') %>
+</body>
+</html>
