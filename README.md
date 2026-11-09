@@ -58,6 +58,15 @@ The app currently connects to MongoDB at `mongodb://localhost:27017/blogify`.
 
 5. Open [http://localhost:8000](http://localhost:8000).
 
+<img width="1861" height="831" alt="image" src="https://github.com/user-attachments/assets/a25efa97-0e10-4128-a9b8-39952c055ce8" />
+
+<img width="1812" height="826" alt="image" src="https://github.com/user-attachments/assets/e50ad880-233d-4abf-8525-65840c7aa6fb" />
+
+<img width="1592" height="887" alt="image" src="https://github.com/user-attachments/assets/30514e91-4320-48dc-aa33-19a6bbdcf03d" />
+
+
+
+
 ## Main routes
 
 | Method | Path | Description |
